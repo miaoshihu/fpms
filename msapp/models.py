@@ -21,45 +21,18 @@ class User(models.Model):
     last_modify_time = models.DateTimeField(auto_now=True)
     last_modify_time.verbose_name = u'最后修改时间'
 
+    enabled = models.BooleanField(default=False)
+    enabled.verbose_name = u'黑名单'
+
+    desc = models.CharField(max_length=100, blank=True, default=None, unique=False)
+    desc = u'描述'
+
     def __str__(self):
         return self.name
 
     class Meta:
         verbose_name = u'用户'
         verbose_name_plural = u'用户列表'
-
-
-class Job(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=True, )
-    user.verbose_name = u'用户'
-
-    name = models.CharField(max_length=10, blank=False, default=None, unique=True)
-    name.verbose_name = u'职位名称'
-
-    type = models.PositiveSmallIntegerField(null=False, blank=False, default=0)
-    type.verbose_name = u'类型'
-
-    gender = models.PositiveSmallIntegerField(null=False, blank=False, default=0)
-    gender.verbose_name = u'性别'
-
-    viewtimes = models.PositiveIntegerField(null=False, blank=False, default=0)
-    viewtimes.verbose_name = u'浏览次数'
-
-    desc1 = models.CharField(max_length=10, blank=False, default=None, unique=True)
-    desc1.verbose_name = u'条件'
-
-    create_time = models.DateTimeField(auto_now_add=True)
-    create_time.verbose_name = u'创建时间'
-
-    last_modify_time = models.DateTimeField(auto_now=True)
-    last_modify_time.verbose_name = u'最后修改时间'
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = u'招聘求职'
-        verbose_name_plural = u'招聘求职列表'
 
 
 class Good(models.Model):
@@ -80,6 +53,9 @@ class Good(models.Model):
 
     last_modify_time = models.DateTimeField(auto_now=True)
     last_modify_time.verbose_name = u'最后修改时间'
+
+    enabled = models.BooleanField(default=False)
+    enabled.verbose_name = u'审核通过'
 
     def __str__(self):
         return self.name + " " + str(self.price)

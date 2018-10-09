@@ -1,0 +1,47 @@
+
+django-----------------------------------------
+
+django-admin startproject fpms
+
+python manage.py startapp msapp
+
+python manage.py makemigrations
+python manage.py migrate
+
+python manage.py createsuperuser
+
+python manage.py runserver 0.0.0.0:8000
+
+
+Redis-----------------------------------------
+
+redis-server
+redis-cli
+ping
+
+
+keys: keys *
+flushdb
+
+get keyname
+
+
+MYSQL-----------------------------------------
+
+create database xxx;
+
+drop database xxx;
+
+CREATE DATABASE `` CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+
+
+git----------------------------------------
+
+git init
+git commit -m 'init project'
+git remote add origin git@github.com:miaoshihu/fpms.git
+git push -u origin master
+
+
+

@@ -5,7 +5,7 @@ from django.contrib import admin
 
 from django.contrib import admin
 
-from .models import User, Job, Good
+from .models import User, Good
 
 
 class GoodInLine(admin.StackedInline):
@@ -13,18 +13,9 @@ class GoodInLine(admin.StackedInline):
     extra = 1
 
 
-class JobInLine(admin.StackedInline):
-    model = Job
-    extra = 1
-
-
 class UserAdmin(admin.ModelAdmin):
     list_display = ['name', 'login_times', 'create_time']
-    inlines = [GoodInLine, JobInLine]
-
-
-class JobAdmin(admin.ModelAdmin):
-    list_display = ['name', 'type', 'user', 'viewtimes','create_time']
+    inlines = [GoodInLine]
 
 
 class GoodAdmin(admin.ModelAdmin):
@@ -32,7 +23,6 @@ class GoodAdmin(admin.ModelAdmin):
 
 
 admin.site.register(User, UserAdmin)
-admin.site.register(Job, JobAdmin)
 admin.site.register(Good, GoodAdmin)
 
 admin.site.site_header = u'365便民管理系统'
