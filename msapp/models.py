@@ -57,7 +57,7 @@ class Good(models.Model):
     address = models.CharField(max_length=20, null=True, default=None)
     address.verbose_name = u'地址'
 
-    phone = models.PositiveIntegerField(null=False, default=0)
+    phone = models.CharField(max_length=20, null=False, default=0)
     phone.verbose_name = u'联系电话'
 
     create_time = models.DateTimeField(null=True, auto_now_add=True)
@@ -102,7 +102,7 @@ class Need(models.Model):
     address = models.CharField(max_length=20, null=True, default=None)
     address.verbose_name = u'地址'
 
-    phone = models.IntegerField(null=False, default=0)
+    phone = models.CharField(max_length=20, null=False, default=0)
     phone.verbose_name = u'联系电话'
 
     create_time = models.DateTimeField(null=True, auto_now_add=True)
@@ -112,7 +112,7 @@ class Need(models.Model):
     last_modify_time.verbose_name = u'最后修改时间'
 
     def __str__(self):
-        return self.name + " " + str(self.price_min + "-" + self.price_max)
+        return self.name + " " + str(self.price_max)
 
     class Meta:
         verbose_name = u'求购'
