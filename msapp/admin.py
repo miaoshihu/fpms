@@ -24,14 +24,14 @@ class GoodAdmin(admin.ModelAdmin):
     list_display = ['name', 'price', 'status', 'short_desc', 'create_time']
     # readonly_fields = ['user_id', "user_nickname", 'name', 'price', 'short_desc', 'phone', 'image1', 'image2', 'image3',
     #                    'desc', 'address',
-    #                    'create_time', 'last_modify_time', 'city']
+    #                    'create_time', 'city']
 
 
 class NeedAdmin(admin.ModelAdmin):
-    list_display = ['name', 'price_max', 'status', 'short_desc', 'create_time']
-    # readonly_fields = ['user_id', "user_nickname", 'name', 'price_max', 'phone', 'address',
-    #                    'desc', 'short_desc',
-    #                    'create_time', 'last_modify_time', 'city']
+    list_display = ['name', 'price', 'status', 'create_time']
+    # readonly_fields = ['user_id', "user_nickname", 'name', 'price', 'phone', 'address',
+    #                    'desc',
+    #                    'create_time', 'city']
 
 
 admin.site.register(City, CityAdmin)

@@ -63,9 +63,6 @@ class Good(models.Model):
     create_time = models.DateTimeField(null=True, auto_now_add=True)
     create_time.verbose_name = u'创建时间'
 
-    last_modify_time = models.DateTimeField(null=True, auto_now=True)
-    last_modify_time.verbose_name = u'最后修改时间'
-
     def __str__(self):
         return self.name + " " + str(self.price)
 
@@ -90,11 +87,8 @@ class Need(models.Model):
     status = models.IntegerField(null=False, default=0)
     status.verbose_name = u"状态"
 
-    price_max = models.PositiveIntegerField(default=0)
-    price_max.verbose_name = u"价格上限"
-
-    short_desc = models.CharField(max_length=20, default=None)
-    short_desc.verbose_name = u'一句话描述'
+    price = models.PositiveIntegerField(default=0)
+    price.verbose_name = u"价格上限"
 
     descs = models.TextField(max_length=60, null=True, default=None)
     descs.verbose_name = u'详细描述'
@@ -108,11 +102,8 @@ class Need(models.Model):
     create_time = models.DateTimeField(null=True, auto_now_add=True)
     create_time.verbose_name = u'创建时间'
 
-    last_modify_time = models.DateTimeField(null=True, auto_now=True)
-    last_modify_time.verbose_name = u'最后修改时间'
-
     def __str__(self):
-        return self.name + " " + str(self.price_max)
+        return self.name + " " + str(self.price)
 
     class Meta:
         verbose_name = u'求购'
