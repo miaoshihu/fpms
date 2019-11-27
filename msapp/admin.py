@@ -26,12 +26,33 @@ class GoodAdmin(admin.ModelAdmin):
     #                    'desc', 'address',
     #                    'create_time', 'city']
 
+    model = Good
+
+    def change_view(self, request, object_id, extra_context=None):
+        extra_context = extra_context or {}
+        extra_context['object_id'] = object_id
+        extra_context['publish_url'] = '/fps/good/publish'
+        return super(GoodAdmin, self).change_view(request, object_id,
+                                                        extra_context=extra_context)
+    class Media:
+        js = [
+            'js/csrf.js',
+            'jquery/jquery.min.js',
+        ]
+
 
 class NeedAdmin(admin.ModelAdmin):
     list_display = ['name', 'price', 'status', 'create_time']
     # readonly_fields = ['user_id', "user_nickname", 'name', 'price', 'phone', 'address',
     #                    'desc',
     #                    'create_time', 'city']
+    model = Need
+
+    class Media:
+        js = [
+            'js/csrf.js',
+            'jquery/jquery.min.js',
+        ]
 
 
 admin.site.register(City, CityAdmin)
