@@ -21,7 +21,7 @@ class NeedInLine(admin.StackedInline):
 
 
 class GoodAdmin(admin.ModelAdmin):
-    list_display = ['name', 'price', 'status', 'short_desc', 'create_time']
+    list_display = ['name', 'price', "user_nickname", 'address', 'short_desc', 'is_verify', 'get_status', 'create_time']
     # readonly_fields = ['user_id', "user_nickname", 'name', 'price', 'short_desc', 'phone', 'image1', 'image2', 'image3',
     #                    'desc', 'address',
     #                    'create_time', 'city']
@@ -34,6 +34,7 @@ class GoodAdmin(admin.ModelAdmin):
         extra_context['publish_url'] = '/fps/good/publish'
         return super(GoodAdmin, self).change_view(request, object_id,
                                                         extra_context=extra_context)
+
     class Media:
         js = [
             'js/csrf.js',

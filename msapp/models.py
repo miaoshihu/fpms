@@ -25,7 +25,7 @@ class Good(models.Model):
     user_id.verbose_name = u'微信id'
 
     user_nickname = models.CharField(max_length=20, default=None)
-    user_nickname.verbose_name = u'微信名'
+    user_nickname.verbose_name = u'用户'
 
     city = models.ForeignKey(City, on_delete=models.CASCADE, null=False)
     city.verbose_name = u'城市'
@@ -33,13 +33,13 @@ class Good(models.Model):
     name = models.CharField(max_length=10, default=None, null=False)
     name.verbose_name = u'物品名称'
 
-    image1 = models.CharField(max_length=200, null=True, default=None)
+    image1 = models.CharField(max_length=200, blank=True, null=True, default=None)
     image1.verbose_name = u'图片1'
 
-    image2 = models.CharField(max_length=200, null=True, default=None)
+    image2 = models.CharField(max_length=200, blank=True, null=True, default=None)
     image2.verbose_name = u'图片2'
 
-    image3 = models.CharField(max_length=200, null=True, default=None)
+    image3 = models.CharField(max_length=200, blank=True, null=True, default=None)
     image3.verbose_name = u'图片3'
 
     status = models.IntegerField(null=False, default=0)
@@ -60,11 +60,31 @@ class Good(models.Model):
     phone = models.CharField(max_length=20, null=False, default=0)
     phone.verbose_name = u'联系电话'
 
-    create_time = models.DateTimeField(null=True, auto_now_add=True)
+    create_time = models.DateTimeField(null=True, auto_now=True)
     create_time.verbose_name = u'创建时间'
 
     def __str__(self):
         return self.name + " " + str(self.price)
+
+    def is_verify(self):
+        return self.status != 0
+
+    def get_status(self):
+
+        if self.status == 0:
+            return "未审核"
+
+        if self.status == 1:
+            return "已上线"
+
+        if self.status == -10:
+            return "审核失败"
+
+
+    is_verify.boolean = True
+    is_verify.short_description = u'已审核'
+
+    get_status.short_description = u'状态'
 
     class Meta:
         verbose_name = u'出售'
@@ -99,7 +119,7 @@ class Need(models.Model):
     phone = models.CharField(max_length=20, null=False, default=0)
     phone.verbose_name = u'联系电话'
 
-    create_time = models.DateTimeField(null=True, auto_now_add=True)
+    create_time = models.DateTimeField(null=True, auto_now=True)
     create_time.verbose_name = u'创建时间'
 
     def __str__(self):
