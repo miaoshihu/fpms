@@ -8,6 +8,22 @@ from .models import Good, Need, City
 
 class CityAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'enabled']
+    model = City
+
+    def change_view(self, request, object_id, extra_context=None):
+        extra_context = extra_context or {}
+        extra_context['object_id'] = object_id
+        print("object      id = " + object_id)
+        extra_context['type'] = 'city'
+        extra_context['publish_url'] = '/fps/good/publish'
+        return super(CityAdmin, self).change_view(request, object_id,
+                                                        extra_context=extra_context)
+
+    class Media:
+        js = [
+            'js/csrf.js',
+            'jquery/jquery.min.js',
+        ]
 
 
 class GoodInLine(admin.StackedInline):
@@ -31,6 +47,7 @@ class GoodAdmin(admin.ModelAdmin):
     def change_view(self, request, object_id, extra_context=None):
         extra_context = extra_context or {}
         extra_context['object_id'] = object_id
+        extra_context['type'] = 'good'
         extra_context['publish_url'] = '/fps/good/publish'
         return super(GoodAdmin, self).change_view(request, object_id,
                                                         extra_context=extra_context)
@@ -48,6 +65,14 @@ class NeedAdmin(admin.ModelAdmin):
     #                    'desc',
     #                    'create_time', 'city']
     model = Need
+
+    def change_view(self, request, object_id, extra_context=None):
+        extra_context = extra_context or {}
+        extra_context['object_id'] = object_id
+        extra_context['type'] = 'need'
+        extra_context['publish_url'] = '/fps/good/publish'
+        return super(NeedAdmin, self).change_view(request, object_id,
+                                                        extra_context=extra_context)
 
     class Media:
         js = [
