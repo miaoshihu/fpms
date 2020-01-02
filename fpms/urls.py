@@ -20,5 +20,5 @@ from msapp.views import PublishHandler
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('fps/good/publish', PublishHandler.as_view()),
+    path('fps/publish', PublishHandler.as_view()),
 ]

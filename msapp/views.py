@@ -50,10 +50,20 @@ class PublishHandler(View):
         print(good.id)
 
         r = redis.Redis(host='localhost', port=6379, db=0)
-        r.flushdb()
+        # r.flushdb()
 
-        cityGoodKey = self.publishCityGood(r, good)
-        self.publishCityGoodList(r, cityGoodKey)
+        print("good.status = ", good.status)
+
+        # 上线
+        if good.status == 1:
+            cityGoodKey = self.publishCityGood(r, good)
+            self.publishCityGoodList(r, cityGoodKey)
+            return
+
+        if good.status == -2:
+            cityGoodKey = self.removeCityGood(r, good)
+            self.removeCityGoodList(r, cityGoodKey)
+            return
 
         # r.set("name", "zhangsan")
         # r.lpush("cgl_hb-xianghe", "cg_hb-xianghe_1")
@@ -73,7 +83,7 @@ class PublishHandler(View):
         print(need.id)
 
         r = redis.Redis(host='localhost', port=6379, db=0)
-        r.flushdb()
+        # r.flushdb()
 
         cityNeedKey = self.publishCityNeed(r, need)
         self.publishCityNeedList(r, cityNeedKey)
@@ -88,7 +98,7 @@ class PublishHandler(View):
         print(city.id)
 
         r = redis.Redis(host='localhost', port=6379, db=0)
-        r.flushdb()
+        # r.flushdb()
 
         cityKey = self.publishCity(r, city)
 
@@ -125,10 +135,24 @@ class PublishHandler(View):
         r.hset(mykey, "address", str(good.address))
         r.hset(mykey, "phone", str(good.phone))
         r.hset(mykey, "create_time", str(good.create_time))
+        r.hset(mykey, "time_stamp", str(good.time_stamp))
 
         print("-----------1----")
         print(r.hgetall(mykey))
+
+
         print("-----------2----")
+        return mykey
+
+    def removeCityGood(self, r, good):
+        mykey = "cg_hb.xianghe_" + str(good.id)
+
+        print("removeCityGood ", mykey)
+        print(r.hgetall(mykey))
+        print(r.delete(mykey))
+        print(r.hgetall(mykey))
+        print("******removeCityGood*******************")
+
         return mykey
 
     def publishCityNeed(self, r, need):
@@ -160,6 +184,12 @@ class PublishHandler(View):
         print(r.lrange(listkey, 0, r.llen(listkey)))
         print("-----------3----")
         return
+
+    def removeCityGoodList(self, r, key):
+        listkey = "cgl_hb.xianghe"
+        print("removeCityGoodList start", r.lrange(listkey, 0, r.llen(listkey)))
+        r.lrem(listkey, 0, key)
+        print("removeCityGoodList end", r.lrange(listkey, 0, r.llen(listkey)))
 
     def publishCityNeedList(self, r, key):
         listkey = "cnl_hb.xianghe"
