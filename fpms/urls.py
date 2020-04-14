@@ -16,9 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from msapp.views import PublishHandler
+from msapp.test import Test
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('fps/publish', PublishHandler.as_view()),
+    path('test/clean_all', Test.clean_all),
 ]
